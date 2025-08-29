@@ -1,23 +1,20 @@
 # Example web app
 
-An example SSR web app using:
+An example web app implementing:
 
-- [`next`](https://npm.im/next)
+- [`react`](https://npm.im/react)
 - [`@apollo/client`](https://npm.im/@apollo/client)
 - [`apollo-upload-client`](https://npm.im/apollo-upload-client)
 
+> [!WARNING] This is a simplistic demo project; a realistic setup would be more complex and support server-side rendering (SSR).
+
 ## Installation
 
-1.  Install the latest [Node.js and npm](https://npmjs.com/get-npm).
-2.  Duplicate `.env.example` as `.env` and configure.
-3.  Run `npm install` in the `app` directory with Terminal.
-4.  Run `npm run dev` for development, or `npm run build && npm start` for production.
-
-Ensure your editor supports:
-
-- [EditorConfig](https://editorconfig.org)
-- [ESLint](https://eslint.org)
-- [Prettier](https://prettier.io)
+1. Setup and start the [example GraphQL API](../api).
+2. Install the latest [Node.js and npm](https://npmjs.com/get-npm).
+3. In a terminal, change to the directory `app`.
+4. Run `npm install`.
+5. Run `npm run dev`.
 
 ## Requirements
 

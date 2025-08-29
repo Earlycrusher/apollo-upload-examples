@@ -16,47 +16,31 @@
   "bugs": "https://github.com/jaydenseric/apollo-upload-examples/issues",
   "funding": "https://github.com/sponsors/jaydenseric",
   "engines": {
-    "node": "^20.9.0 || >=22.0.0",
+    "node": ">=22.0.0",
     "npm": ">=7"
   },
-  "browserslist": "Node 20.9 - 21 and Node < 21, Node >= 22, > 0.5%, not OperaMini all, not dead",
+  "browserslist": "Node >= 22, Chrome >= 139",
   "dependencies": {
-    "@apollo/client": "^3.14.0",
-    "apollo-upload-client": "^18.0.1",
-    "device-agnostic-ui": "~10.0.0",
+    "@apollo/client": "^4.0.2",
+    "apollo-upload-client": "^19.0.0",
     "graphql": "^16.11.0",
-    "next": "^14.2.32",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.28.0",
-    "@types/eslint": "^8.56.12",
     "@types/node": "^24.3.0",
-    "@types/react": "^18.3.24",
-    "@types/react-dom": "^18.3.7",
-    "babel-plugin-graphql-tag": "^3.3.0",
-    "eslint": "^8.57.1",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "esbuild": "^0.25.9",
     "prettier": "^3.6.2",
-    "stylelint": "^16.23.1",
-    "stylelint-config-recommended": "^17.0.0",
     "typescript": "^5.9.2"
   },
-  "overrides": {
-    "next": "^14.2.32",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "eslint": "eslint .",
-    "stylelint": "stylelint '**/*.css'",
+    "dev": "esbuild app.tsx --target=node22,chrome139 --bundle --minify --sourcemap --outdir=public/build --servedir=public",
     "prettier": "prettier -c .",
-    "types": "tsc -p jsconfig.json",
-    "test": "npm run eslint && npm run stylelint && npm run prettier && npm run types"
+    "types": "tsc -p tsconfig.json",
+    "check": "node --run prettier && node --run types"
   }
 }
