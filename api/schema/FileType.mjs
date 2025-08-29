@@ -1,6 +1,11 @@
 // @ts-check
 
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import {
+  GraphQLID,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from "graphql";
 
 import UPLOAD_DIRECTORY_URL from "../config/UPLOAD_DIRECTORY_URL.mjs";
 
@@ -10,7 +15,7 @@ export default new GraphQLObjectType({
   fields: () => ({
     id: {
       description: "Unique ID.",
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLID),
       resolve: (storedFileName) => storedFileName,
     },
     name: {
