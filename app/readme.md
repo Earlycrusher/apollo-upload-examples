@@ -14,7 +14,7 @@ An example web app implementing:
 2. Install the latest [Node.js and npm](https://npmjs.com/get-npm).
 3. In a terminal, change to the directory `app`.
 4. Run `npm install`.
-5. Run `npm run dev`.
+5. Run `node --run dev`.
 
 ## Requirements
 
