@@ -10,7 +10,7 @@ An example web app implementing:
 
 ## Installation
 
-1. Setup and start the [example GraphQL API](../api).
+1. Install and start the [example GraphQL API](../api).
 2. Install the latest [Node.js and npm](https://npmjs.com/get-npm).
 3. In a terminal, change to the directory `app`.
 4. Run `npm install`.

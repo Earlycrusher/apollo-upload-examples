@@ -16,37 +16,31 @@
   "bugs": "https://github.com/jaydenseric/apollo-upload-examples/issues",
   "funding": "https://github.com/sponsors/jaydenseric",
   "engines": {
-    "node": "^18.15.0 || >=20.4.0",
+    "node": ">=23.6.0",
     "npm": ">=7"
   },
   "dependencies": {
-    "@apollo/server": "^4.3.0",
-    "@as-integrations/koa": "^0.2.1",
-    "@koa/cors": "^4.0.0",
-    "dotenv": "^16.0.3",
-    "graphql": "^16.6.0",
-    "graphql-upload": "^16.0.2",
-    "koa": "^2.14.1",
-    "koa-bodyparser": "^4.3.0",
-    "make-dir": "^3.1.0",
-    "shortid": "^2.2.16"
+    "@apollo/server": "^4.12.2",
+    "@as-integrations/koa": "^1.1.1",
+    "@koa/cors": "^5.0.0",
+    "graphql": "^16.11.0",
+    "graphql-upload": "^17.0.0",
+    "koa": "^2.16.2",
+    "koa-bodyparser": "^4.4.1",
+    "shortid": "^2.2.17"
   },
   "devDependencies": {
     "@types/koa": "^2.13.5",
     "@types/koa__cors": "^3.3.0",
     "@types/koa-bodyparser": "^4.3.10",
-    "@types/node": "^18.11.18",
-    "eslint": "^8.31.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "prettier": "^2.8.2",
-    "typescript": "^4.9.4"
+    "@types/node": "^24.3.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
   },
   "scripts": {
-    "dev": "node --watch -r dotenv/config server.mjs",
-    "start": "node -r dotenv/config server.mjs",
-    "eslint": "eslint .",
+    "dev": "node --watch server.mts",
     "prettier": "prettier -c .",
-    "types": "tsc -p jsconfig.json",
-    "test": "npm run eslint && npm run prettier && npm run types"
+    "types": "tsc -p tsconfig.json",
+    "check": "node --run prettier && node --run types"
   }
 }

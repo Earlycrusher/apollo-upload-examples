@@ -1,10 +1,9 @@
-// @ts-check
-
 import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from "graphql";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
+import type { FileUpload } from "graphql-upload/processRequest.mjs";
 
-import storeUpload from "../storeUpload.mjs";
-import FileType from "./FileType.mjs";
+import storeUpload from "../storeUpload.mts";
+import FileType from "./FileType.mts";
 
 export default new GraphQLObjectType({
   name: "Mutation",
@@ -18,7 +17,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLUpload),
         },
       },
-      resolve: (parent, { file }) => storeUpload(file),
+      resolve: (_source, { file }) => storeUpload(file),
     },
     multipleUpload: {
       description: "Stores multiple files.",
@@ -27,21 +26,12 @@ export default new GraphQLObjectType({
         files: {
           description: "Files to store.",
           type: new GraphQLNonNull(
-            new GraphQLList(new GraphQLNonNull(GraphQLUpload))
+            new GraphQLList(new GraphQLNonNull(GraphQLUpload)),
           ),
         },
       },
-      async resolve(
-        parent,
-        /**
-         * @type {{ files: Array<
-         *   Promise<import("graphql-upload/processRequest.mjs").FileUpload>
-         * >}}
-         */
-        { files }
-      ) {
-        /** @type {Array<string>} */
-        const storedFileNames = [];
+      async resolve(_source, { files }: { files: Array<Promise<FileUpload>> }) {
+        const storedFileNames: Array<string> = [];
 
         // Ensure an error storing one upload doesn’t prevent storing the rest.
         for (const result of await Promise.allSettled(files.map(storeUpload)))

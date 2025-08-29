@@ -1,25 +1,21 @@
-// @ts-check
-
-import { fileURLToPath } from "node:url";
-
+import { mkdir } from "node:fs/promises";
+import { createServer } from "node:http";
 import { ApolloServer } from "@apollo/server";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { koaMiddleware as apolloServerKoa } from "@as-integrations/koa";
 import corsKoa from "@koa/cors";
 import graphqlUploadKoa from "graphql-upload/graphqlUploadKoa.mjs";
-import http from "http";
 import Koa from "koa";
 import bodyParserKoa from "koa-bodyparser";
-import makeDir from "make-dir";
 
-import UPLOAD_DIRECTORY_URL from "./config/UPLOAD_DIRECTORY_URL.mjs";
-import schema from "./schema/index.mjs";
+import UPLOAD_DIRECTORY_URL from "./constants/UPLOAD_DIRECTORY_URL.mts";
+import schema from "./schema/index.mts";
 
 // Ensure the upload directory exists.
-await makeDir(fileURLToPath(UPLOAD_DIRECTORY_URL));
+await mkdir(UPLOAD_DIRECTORY_URL, { recursive: true });
 
 const app = new Koa();
-const httpServer = http.createServer(app.callback());
+const httpServer = createServer(app.callback());
 const apolloServer = new ApolloServer({
   schema,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -34,13 +30,20 @@ app.use(
     // such as NGINX so errors can be handled elegantly by `graphql-upload`.
     maxFileSize: 10000000, // 10 MB
     maxFiles: 20,
-  })
+  }),
 );
 app.use(bodyParserKoa());
-app.use(apolloServerKoa(apolloServer));
+app.use(
+  apolloServerKoa(
+    // @ts-expect-error Appears to be a dual package hazard with the outdated
+    // dependencies and types.
+    apolloServer,
+  ),
+);
 
-httpServer.listen(process.env.PORT, () => {
-  console.info(
-    `Serving http://localhost:${process.env.PORT} for ${process.env.NODE_ENV}.`
-  );
+/** Port to serve on. */
+const port = 3001;
+
+httpServer.listen(port, () => {
+  console.info(`Serving: http://localhost:${port}`);
 });

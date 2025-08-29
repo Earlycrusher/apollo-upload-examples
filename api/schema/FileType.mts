@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
   GraphQLID,
   GraphQLNonNull,
@@ -7,7 +5,7 @@ import {
   GraphQLString,
 } from "graphql";
 
-import UPLOAD_DIRECTORY_URL from "../config/UPLOAD_DIRECTORY_URL.mjs";
+import UPLOAD_DIRECTORY_URL from "../constants/UPLOAD_DIRECTORY_URL.mts";
 
 export default new GraphQLObjectType({
   name: "File",
