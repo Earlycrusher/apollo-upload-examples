@@ -4,7 +4,7 @@ import { useApolloClient, useMutation } from "@apollo/client/react";
 /** React component for a uploading a single file. */
 export default function UploadFile() {
   const apolloClient = useApolloClient();
-  const [mutate] = useMutation<
+  const [mutate, { loading }] = useMutation<
     {
       singleUpload: {
         id: string;
@@ -19,6 +19,7 @@ export default function UploadFile() {
     <input
       type="file"
       required
+      disabled={loading}
       onChange={async ({ target: { validity, files } }) => {
         if (validity.valid && files?.[0]) {
           await mutate({

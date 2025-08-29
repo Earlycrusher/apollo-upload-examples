@@ -4,7 +4,7 @@ import { useApolloClient, useMutation } from "@apollo/client/react";
 /** React component for a uploading a file list. */
 export default function UploadFileList() {
   const apolloClient = useApolloClient();
-  const [mutate] = useMutation<
+  const [mutate, { loading }] = useMutation<
     {
       multipleUpload: Array<{
         id: string;
@@ -20,6 +20,7 @@ export default function UploadFileList() {
       type="file"
       multiple
       required
+      disabled={loading}
       onChange={async ({ target: { validity, files } }) => {
         if (validity.valid && files?.[0]) {
           await mutate({
